@@ -11,8 +11,7 @@ Usage: nomscript [-u usuari] [-h hostname] [-t]
 EOF
 
 }
-
-numero=^-?[0-9]+([.][0-9]+)?$;
+numero='^[0-9]+$'
 
 while getopts :u:h:p:t o; do
         case "$o" in
@@ -24,9 +23,10 @@ while getopts :u:h:p:t o; do
                         ;;
 		p)
                         port=${OPTARG}
-			if ! [ $pot =~ $numero  ] then
+			if  [ ! $port =~ $numero ] && [ ! -z $port ]
+			then
 				usage
-                        ;;
+			fi ;;
 		t)
 			t=${OPTARG}
 			;;
@@ -41,10 +41,10 @@ while getopts :u:h:p:t o; do
         esac
 done
 
-shift $((OPTIND-1))
+#shift $((OPTIND-1))
 
 
-if [[ "${UID}" -eq 0 ]]
+if [ $(id -u) -eq 0 ];
 then
         if [ ! -z "$usuari" ] 
         then

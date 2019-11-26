@@ -12,4 +12,3 @@ echo "Alias /adminer.php /usr/share/adminer/adminer.php" | tee /etc/apache2/conf
 a2enconf adminer.conf
 systemctl reload apache2
 
-

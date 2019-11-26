@@ -23,10 +23,17 @@ while getopts :u:h:p:t o; do
                         ;;
 		p)
                         port=${OPTARG}
-			if  [ ! $port =~ $numero ] && [ ! -z $port ]
+			if [ $port =~ $number]
 			then
+				if [ ! -z $port ] && [ $port -lt 1024 ]
+				then
 				usage
-			fi ;;
+				exit 1
+				fi
+			else
+				usage
+				exit 1 
+			fi;;
 		t)
 			t=${OPTARG}
 			;;

@@ -13,6 +13,5 @@ Vagrant.configure("2") do |config|
    end
 
   #Aquí es el provisionamiento
-   config.vm.provision "shell", path: "lamp.sh",
-     run: "always"
+   config.vm.provision "shell", path: "lamp.sh"
 end

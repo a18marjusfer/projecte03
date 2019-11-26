@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
      vb.memory = "2048"
    end
 
-  #Aquí es el provisionamiento (por ahora comentado)
+  #Aquí es el provisionamiento
    config.vm.provision "shell", path: "lamp.sh",
      run: "always"
 end

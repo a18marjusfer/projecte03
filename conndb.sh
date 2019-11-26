@@ -1,9 +1,12 @@
-# https://github.com/a18marjusfer/projecte03
 #!/bin/bash
+
+# https://github.com/a18marjusfer/projecte03
+
+
 nomscript=$0   # $0 es el nom del programa
 usage() {
 cat <<EOF
-Usage: nomscript [-u usuari] [-h hostname] [-t]
+Usage: $nomscript [-u usuari] [-h hostname] [-t]
    -u   usuari de la base de dades (obligatori)
    -h   hostname on es connectarà (obligatori
    -p   port (no obligatori ja que per defecte és 3306, però si existeix ha de ser un numero superior a 1024 i inferior o igual a 65535)
@@ -11,7 +14,8 @@ Usage: nomscript [-u usuari] [-h hostname] [-t]
 EOF
 
 }
-numero='^[0-9]+$'
+
+es_numero=^[[:digit:]]+$
 
 while getopts :u:h:p:t o; do
         case "$o" in
@@ -22,17 +26,26 @@ while getopts :u:h:p:t o; do
                         hostname=${OPTARG}
                         ;;
 		p)
-                        port=${OPTARG}
-			if [ $port =~ $number]
+	                port=${OPTARG}
+			if [ ! -z $port ]
 			then
-				if [ ! -z $port ] && [ $port -lt 1024 ]
+				if [[ $port =~ $es_numero ]]
 				then
-				usage
-				exit 1
+					if [ $port -lt 1024 ]
+                                	then
+                                        	echo "El puerto debe ser mayor que 1024"
+                                        	usage
+                                        	exit 1
+                                	fi
+
+				else
+					echo "El puerto debe ser un número"
+					usage
+					exit 1
 				fi
 			else
 				usage
-				exit 1 
+				exit 1
 			fi;;
 		t)
 			t=${OPTARG}

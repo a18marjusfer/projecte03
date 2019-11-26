@@ -2,6 +2,8 @@
 apt-get update
 apt-get install -y apache2
 ufw allow in "Apache Full"
+sudo debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password root'
+sudo debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password root'
 apt-get install -y mysql-server
 apt-get install -y php libapache2-mod-php php-mysql
 systemctl restart apache2
@@ -11,4 +13,5 @@ ln -s /usr/share/adminer/latest.php /usr/share/adminer/adminer.php
 echo "Alias /adminer.php /usr/share/adminer/adminer.php" | tee /etc/apache2/conf-available/adminer.conf
 a2enconf adminer.conf
 systemctl reload apache2
+
 
